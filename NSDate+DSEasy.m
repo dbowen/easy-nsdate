@@ -414,7 +414,7 @@
             return @"1 minute";
         }
         else if (components.minute < 44 || (components.minute == 44 && components.second < 30)) {
-            return [NSString stringWithFormat:@"%ul minutes", components.minute];
+            return [NSString stringWithFormat:@"%u minutes", components.minute];
         }
         return @"about 1 hour";
     }
@@ -425,19 +425,19 @@
         else if (components.hour == 23 && components.minute == 59 && components.second >= 30) {
             return @"1 day";
         }
-        return [NSString stringWithFormat:@"about %ul hours", components.hour];
+        return [NSString stringWithFormat:@"about %u hours", components.hour];
     }
     else if (components.year == 0 && components.month == 0) {
         if (components.day == 1 && self.hour < 17) {
             return @"1 day";
         }
-        return [NSString stringWithFormat:@"%ul days", components.day];
+        return [NSString stringWithFormat:@"%u days", components.day];
     }
     else if (components.year == 0) {
         if (components.month == 1 && components.day < 29) {
             return @"about 1 month";
         }
-        return [NSString stringWithFormat:@"%ul months", components.month];
+        return [NSString stringWithFormat:@"%u months", components.month];
     }
     else {
         NSString *yearSuffix = @"s";
@@ -445,13 +445,13 @@
             yearSuffix = @"";
         
         if (components.month <= 3) {
-            return [NSString stringWithFormat:@"about %ul year%@", components.year, yearSuffix];
+            return [NSString stringWithFormat:@"about %u year%@", components.year, yearSuffix];
         }
         else if (components.month >= 4 && components.month <= 9) {
-            return [NSString stringWithFormat:@"over %ul year%@", components.year, yearSuffix];
+            return [NSString stringWithFormat:@"over %u year%@", components.year, yearSuffix];
         }
         else {
-            return [NSString stringWithFormat:@"almost %ul years", components.year + 1];
+            return [NSString stringWithFormat:@"almost %u years", components.year + 1];
         }
     }
 }
