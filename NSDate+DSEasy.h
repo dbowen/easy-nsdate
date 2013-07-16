@@ -106,5 +106,6 @@
 // Words
 - (NSString *)distanceOfTimeInWordsFromDate:(NSDate *)fromDate;
 - (NSString *)timeAgoInWords;
+- (NSString *)timeUntilInWords;
 
 @end

@@ -402,56 +402,62 @@
 - (NSString *)distanceOfTimeInWordsFromDate:(NSDate *)fromDate
 {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:fromDate toDate:self options:0];
+    NSUInteger year = abs(components.year);
+    NSUInteger month = abs(components.month);
+    NSUInteger day = abs(components.day);
+    NSUInteger hour = abs(components.hour);
+    NSUInteger minute = abs(components.minute);
+    NSUInteger second = abs(components.second);
     
-    if (components.year == 0 && components.month == 0 && components.day == 0 && components.hour == 0 && components.minute == 0) {
-        if (components.second < 30) {
+    if (year == 0 && month == 0 && day == 0 && hour == 0 && minute == 0) {
+        if (second < 30) {
             return @"less than a minute";
         }
         return @"1 minute";
     }
-    else if (components.year == 0 && components.month == 0 && components.day == 0 && components.hour == 0) {
-        if (components.minute == 1 && components.second < 30) {
+    else if (year == 0 && month == 0 && day == 0 && hour == 0) {
+        if (minute == 1 && second < 30) {
             return @"1 minute";
         }
-        else if (components.minute < 44 || (components.minute == 44 && components.second < 30)) {
-            return [NSString stringWithFormat:@"%u minutes", components.minute];
+        else if (minute < 44 || (minute == 44 && second < 30)) {
+            return [NSString stringWithFormat:@"%u minutes", minute];
         }
         return @"about 1 hour";
     }
-    else if (components.year == 0 && components.month == 0 && components.day == 0) {
-        if (components.hour == 1 && components.minute < 30) {
+    else if (year == 0 && month == 0 && day == 0) {
+        if (hour == 1 && minute < 30) {
             return @"about 1 hour";
         }
-        else if (components.hour == 23 && components.minute == 59 && components.second >= 30) {
+        else if (hour == 23 && minute == 59 && second >= 30) {
             return @"1 day";
         }
-        return [NSString stringWithFormat:@"about %u hours", components.hour];
+        return [NSString stringWithFormat:@"about %u hours", hour];
     }
-    else if (components.year == 0 && components.month == 0) {
-        if (components.day == 1 && self.hour < 17) {
+    else if (year == 0 && month == 0) {
+        if (day == 1 && self.hour < 17) {
             return @"1 day";
         }
-        return [NSString stringWithFormat:@"%u days", components.day];
+        return [NSString stringWithFormat:@"%u days", day];
     }
-    else if (components.year == 0) {
-        if (components.month == 1 && components.day < 29) {
+    else if (year == 0) {
+        if (month == 1 && day < 29) {
             return @"about 1 month";
         }
-        return [NSString stringWithFormat:@"%u months", components.month];
+        return [NSString stringWithFormat:@"%u months", month];
     }
     else {
         NSString *yearSuffix = @"s";
-        if (components.year == 1)
+        if (year == 1)
             yearSuffix = @"";
         
-        if (components.month <= 3) {
-            return [NSString stringWithFormat:@"about %u year%@", components.year, yearSuffix];
+        if (month <= 3) {
+            return [NSString stringWithFormat:@"about %u year%@", year, yearSuffix];
         }
-        else if (components.month >= 4 && components.month <= 9) {
-            return [NSString stringWithFormat:@"over %u year%@", components.year, yearSuffix];
+        else if (month >= 4 && month <= 9) {
+            return [NSString stringWithFormat:@"over %u year%@", year, yearSuffix];
         }
         else {
-            return [NSString stringWithFormat:@"almost %u years", components.year + 1];
+            return [NSString stringWithFormat:@"almost %u years", year + 1];
         }
     }
 }
@@ -459,6 +465,11 @@
 - (NSString *)timeAgoInWords
 {
     return [NSString stringWithFormat:@"%@ ago", [self distanceOfTimeInWordsFromDate:[NSDate date]]];
+}
+
+- (NSString *)timeUntilInWords
+{
+    return [NSString stringWithFormat:@"in %@", [self distanceOfTimeInWordsFromDate:[NSDate date]]];
 }
 
 
