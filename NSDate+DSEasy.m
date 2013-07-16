@@ -38,7 +38,7 @@
 
 + (NSDate *)dateYesterday
 {
-    return [self dateDaysUntil:1];
+    return [self dateDaysAgo:1];
 }
 
 + (NSDate *)dateTomorrow
@@ -113,7 +113,7 @@
 
 + (NSDate *)dateYearsSince:(NSInteger)yearsSince
 {
-    return [[NSDate date] dateYearsUntil:yearsSince];
+    return [[NSDate date] dateYearsSince:yearsSince];
 }
 
 + (NSDate *)dateMonthsSince:(NSInteger)monthsSince
@@ -133,7 +133,7 @@
 
 + (NSDate *)dateMinutesSince:(NSInteger)minutesSince
 {
-    return [[NSDate date] dateMinutesUntil:minutesSince];
+    return [[NSDate date] dateMinutesSince:minutesSince];
 }
 
 + (NSDate *)dateSecondsSince:(NSInteger)secondsSince
@@ -144,34 +144,34 @@
 
 #pragma mark - Until now
 
-+ (NSDate *)dateYearsUntil:(NSInteger)yearsUntil
++ (NSDate *)dateYearsAgo:(NSInteger)yearsAgo
 {
-    return [[NSDate date] dateYearsUntil:yearsUntil];
+    return [[NSDate date] dateYearsAgo:yearsAgo];
 }
 
-+ (NSDate *)dateMonthsUntil:(NSInteger)monthsUntil
++ (NSDate *)dateMonthsAgo:(NSInteger)monthsAgo
 {
-    return [[NSDate date] dateMonthsUntil:monthsUntil];
+    return [[NSDate date] dateMonthsAgo:monthsAgo];
 }
 
-+ (NSDate *)dateDaysUntil:(NSInteger)daysUntil
++ (NSDate *)dateDaysAgo:(NSInteger)daysAgo
 {
-    return [[NSDate date] dateDaysUntil:daysUntil];
+    return [[NSDate date] dateDaysAgo:daysAgo];
 }
 
-+ (NSDate *)dateHoursUntil:(NSInteger)hoursUntil
++ (NSDate *)dateHoursAgo:(NSInteger)hoursAgo
 {
-    return [[NSDate date] dateHoursUntil:hoursUntil];
+    return [[NSDate date] dateHoursAgo:hoursAgo];
 }
 
-+ (NSDate *)dateMinutesUntil:(NSInteger)minutesUntil
++ (NSDate *)dateMinutesAgo:(NSInteger)minutesAgo
 {
-    return [[NSDate date] dateMinutesUntil:minutesUntil];
+    return [[NSDate date] dateMinutesAgo:minutesAgo];
 }
 
-+ (NSDate *)dateSecondsUntil:(NSInteger)secondsUntil
++ (NSDate *)dateSecondsAgo:(NSInteger)secondsAgo
 {
-    return [[NSDate date] dateSecondsUntil:secondsUntil];
+    return [[NSDate date] dateSecondsAgo:secondsAgo];
 }
 
 
@@ -222,45 +222,45 @@
 
 #pragma mark - Until Instance
 
-- (NSDate *)dateYearsUntil:(NSInteger)yearsUntil
+- (NSDate *)dateYearsAgo:(NSInteger)yearsAgo
 {
     NSCalendar *currentCalendar = [NSCalendar currentCalendar];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    offsetComponents.year = -yearsUntil;
+    offsetComponents.year = -yearsAgo;
     
     return [currentCalendar dateByAddingComponents:offsetComponents toDate:self options:0];
 }
 
-- (NSDate *)dateMonthsUntil:(NSInteger)monthsUntil
+- (NSDate *)dateMonthsAgo:(NSInteger)monthsAgo
 {
     NSCalendar *currentCalendar = [NSCalendar currentCalendar];
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-    offsetComponents.month = -monthsUntil;
+    offsetComponents.month = -monthsAgo;
     
     return [currentCalendar dateByAddingComponents:offsetComponents toDate:self options:0];
 }
 
-- (NSDate *)dateDaysUntil:(NSInteger)daysUntil
+- (NSDate *)dateDaysAgo:(NSInteger)daysAgo
 {
-    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] - (kDSSecondsInDay * daysUntil);
+    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] - (kDSSecondsInDay * daysAgo);
     return [NSDate dateWithTimeIntervalSinceReferenceDate:timeInterval];
 }
 
-- (NSDate *)dateHoursUntil:(NSInteger)hoursUntil
+- (NSDate *)dateHoursAgo:(NSInteger)hoursAgo
 {
-    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] - (kDSSecondsInHour * hoursUntil);
+    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] - (kDSSecondsInHour * hoursAgo);
     return [NSDate dateWithTimeIntervalSinceReferenceDate:timeInterval];
 }
 
-- (NSDate *)dateMinutesUntil:(NSInteger)minutesUntil
+- (NSDate *)dateMinutesAgo:(NSInteger)minutesAgo
 {
-    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] - (kDSSecondsInMinute * minutesUntil);
+    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] - (kDSSecondsInMinute * minutesAgo);
     return [NSDate dateWithTimeIntervalSinceReferenceDate:timeInterval];
 }
 
-- (NSDate *)dateSecondsUntil:(NSInteger)secondsUntil
+- (NSDate *)dateSecondsAgo:(NSInteger)secondsAgo
 {
-    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] - secondsUntil;
+    NSTimeInterval timeInterval = [self timeIntervalSinceReferenceDate] - secondsAgo;
     return [NSDate dateWithTimeIntervalSinceReferenceDate:timeInterval];
 }
 
@@ -355,12 +355,12 @@
 
 - (BOOL)isPast
 {
-    return ([self compare:[NSDate date]] == NSOrderedDescending);
+    return ([self compare:[NSDate date]] == NSOrderedAscending);
 }
 
 - (BOOL)isFuture
 {
-    return ([self compare:[NSDate date]] == NSOrderedAscending);
+    return ([self compare:[NSDate date]] == NSOrderedDescending);
 }
 
 
@@ -472,5 +472,9 @@
     return [NSString stringWithFormat:@"in %@", [self distanceOfTimeInWordsFromDate:[NSDate date]]];
 }
 
+- (NSString *)timeAgoOrUntilInWords
+{
+    return ([self isFuture]) ? [self timeUntilInWords] : [self timeAgoInWords];
+}
 
 @end

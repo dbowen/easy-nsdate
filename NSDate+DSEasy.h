@@ -46,7 +46,7 @@
 - (NSDate *)dateAtBeginningOfHour;
 - (NSDate *)dateAtEndOfHour;
 
-// Since now
+// Since Now
 + (NSDate *)dateYearsSince:(NSInteger)yearsSince;
 + (NSDate *)dateMonthsSince:(NSInteger)monthsSince;
 + (NSDate *)dateDaysSince:(NSInteger)daysSince;
@@ -54,13 +54,13 @@
 + (NSDate *)dateMinutesSince:(NSInteger)minutesSince;
 + (NSDate *)dateSecondsSince:(NSInteger)secondsSince;
 
-// Until now
-+ (NSDate *)dateYearsUntil:(NSInteger)yearsUntil;
-+ (NSDate *)dateMonthsUntil:(NSInteger)monthsUntil;
-+ (NSDate *)dateDaysUntil:(NSInteger)daysUntil;
-+ (NSDate *)dateHoursUntil:(NSInteger)hoursUntil;
-+ (NSDate *)dateMinutesUntil:(NSInteger)minutesUntil;
-+ (NSDate *)dateSecondsUntil:(NSInteger)secondsUntil;
+// Until Now
++ (NSDate *)dateYearsAgo:(NSInteger)yearsAgo;
++ (NSDate *)dateMonthsAgo:(NSInteger)monthsAgo;
++ (NSDate *)dateDaysAgo:(NSInteger)daysAgo;
++ (NSDate *)dateHoursAgo:(NSInteger)hoursAgo;
++ (NSDate *)dateMinutesAgo:(NSInteger)minutesAgo;
++ (NSDate *)dateSecondsAgo:(NSInteger)secondsAgo;
 
 // Since Instance
 - (NSDate *)dateYearsSince:(NSInteger)yearsSince;
@@ -71,12 +71,12 @@
 - (NSDate *)dateSecondsSince:(NSInteger)secondsSince;
 
 // Until Instance
-- (NSDate *)dateYearsUntil:(NSInteger)yearsUntil;
-- (NSDate *)dateMonthsUntil:(NSInteger)monthsUntil;
-- (NSDate *)dateDaysUntil:(NSInteger)daysUntil;
-- (NSDate *)dateHoursUntil:(NSInteger)hoursUntil;
-- (NSDate *)dateMinutesUntil:(NSInteger)minutesUntil;
-- (NSDate *)dateSecondsUntil:(NSInteger)secondsUntil;
+- (NSDate *)dateYearsAgo:(NSInteger)yearsAgo;
+- (NSDate *)dateMonthsAgo:(NSInteger)monthsAgo;
+- (NSDate *)dateDaysAgo:(NSInteger)daysAgo;
+- (NSDate *)dateHoursAgo:(NSInteger)hoursAgo;
+- (NSDate *)dateMinutesAgo:(NSInteger)minutesAgo;
+- (NSDate *)dateSecondsAgo:(NSInteger)secondsAgo;
 
 // Date Comparisons
 - (BOOL)isEqualToDateIgnoringTime:(NSDate *)date;
@@ -107,5 +107,6 @@
 - (NSString *)distanceOfTimeInWordsFromDate:(NSDate *)fromDate;
 - (NSString *)timeAgoInWords;
 - (NSString *)timeUntilInWords;
+- (NSString *)timeAgoOrUntilInWords;
 
 @end
